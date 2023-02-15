@@ -56,6 +56,6 @@ app.all("*", (req, res) => {
 	res.json({ message: "All routes" })
 })
 
-app.listen(process.env.PORT || 5000, () => {
+app.listen(process.env.PORT || 3000, () => {
 	console.log("Server has just started")
 })
