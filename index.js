@@ -6,16 +6,7 @@ const nodemailer = require("nodemailer")
 
 const app = express()
 app.use(formidable())
-// app.use(cors())
-
-app.use(
-	cors({
-		origin: [
-			"http://localhost:3000",
-			"https://cigale-construction.netlify.app/",
-		],
-	})
-)
+app.use(cors())
 
 app.get("/", (req, res) => {
 	res.send("Server is up!")
@@ -36,7 +27,7 @@ app.post("/form", async (req, res) => {
 		})
 
 		let info = await transporter.sendMail({
-			from: `Contact MF<${email}>`, // sender address
+			from: `Contact MF <${email}>`, // sender address
 			to: "manuel.fontenelle@gmail.com", // list of receivers
 			replyTo: `${email}`,
 			subject: "Contact", // Subject line
