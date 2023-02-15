@@ -21,13 +21,13 @@ app.post("/form", async (req, res) => {
 			port: 465,
 			secure: true, // true for 465, false for other ports
 			auth: {
-				user: "mflabz75",
+				user: process.env.GMAIL_USER,
 				pass: process.env.GMAIL_PASS,
 			},
 		})
 
 		let info = await transporter.sendMail({
-			from: `Contact MFlabz <${email}>`, // sender address
+			from: `Contact MF <${email}>`, // sender address
 			to: "manuel.fontenelle@gmail.com", // list of receivers
 			subject: "Contact", // Subject line
 			text: "test", // plain text body
@@ -55,6 +55,6 @@ app.all("*", (req, res) => {
 	res.json({ message: "All routes" })
 })
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT || 5000, () => {
 	console.log("Server has just started")
 })
