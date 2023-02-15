@@ -6,7 +6,14 @@ const nodemailer = require("nodemailer")
 
 const app = express()
 app.use(formidable())
-app.use(cors())
+// app.use(cors())
+
+app.use(function (req, res, next) {
+	// Website you wish to allow to connect
+	cors()
+	res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000")
+	next()
+})
 
 app.get("/", (req, res) => {
 	res.send("Server is up!")
