@@ -17,18 +17,19 @@ app.post("/form", async (req, res) => {
 
 	if (email && message) {
 		let transporter = nodemailer.createTransport({
-			host: "smtp.gmail.com",
+			host: process.env.EMAIL_HOST,
 			port: 465,
 			secure: true, // true for 465, false for other ports
 			auth: {
-				user: process.env.GMAIL_USER,
-				pass: process.env.GMAIL_PASS,
+				user: process.env.EMAIL_USER,
+				pass: process.env.EMAIL_PASS,
 			},
 		})
 
 		let info = await transporter.sendMail({
-			from: `Contact MF <${email}>`, // sender address
+			from: `Contact MF<${email}>`, // sender address
 			to: "manuel.fontenelle@gmail.com", // list of receivers
+			replyTo: `${email}`,
 			subject: "Contact", // Subject line
 			text: "test", // plain text body
 			html: `Message : ${message}<br/><br/> E-mail : ${email}`, // html body
