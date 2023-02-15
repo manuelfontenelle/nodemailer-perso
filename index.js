@@ -17,7 +17,7 @@ app.post("/form", async (req, res) => {
 
 	if (email && message) {
 		let transporter = nodemailer.createTransport({
-			host: process.env.EMAIL_HOST,
+			host: "smtp.gmail.com",
 			port: 465,
 			secure: true, // true for 465, false for other ports
 			auth: {
