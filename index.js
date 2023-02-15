@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
 })
 
 app.post("/form", async (req, res) => {
-	const { email, message } = req.fields
+	const { prenom, nom, phone, email, message } = req.fields
 
 	if (email && message) {
 		let transporter = nodemailer.createTransport({
@@ -32,7 +32,7 @@ app.post("/form", async (req, res) => {
 			replyTo: `${email}`,
 			subject: "Contact", // Subject line
 			text: "test", // plain text body
-			html: `Message : ${message}<br/><br/> E-mail : ${email}`, // html body
+			html: `Prénom :${prenom}<br/><br/> Nom :${nom}<br/><br/> Phone :${phone}<br/><br/> Message : ${message}<br/><br/> E-mail : ${email}`, // html body
 		})
 
 		if (info) {
