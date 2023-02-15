@@ -8,12 +8,14 @@ const app = express()
 app.use(formidable())
 // app.use(cors())
 
-app.use(function (req, res, next) {
-	// Website you wish to allow to connect
-	cors()
-	res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000")
-	next()
-})
+app.use(
+	cors({
+		origin: [
+			"http://localhost:3000",
+			"https://cigale-construction.netlify.app/",
+		],
+	})
+)
 
 app.get("/", (req, res) => {
 	res.send("Server is up!")
