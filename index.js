@@ -37,8 +37,8 @@ app.post("/form1", async (req, res, next) => {
 			html: `Prénom :${prenom}<br/><br/> Nom :${nom}<br/><br/> Phone :${phone}<br/><br/> Adresse : ${adresse}<br/><br/> Message : ${message}<br/><br/> E-mail : ${email}<br/><br/> StartDate : ${startDate}<br/><br/>`, // html body
 			attachments: [
 				{
-					filename: req.files.selectedFiles.name,
-					path: req.files.selectedFiles.path,
+					filename: req.files.selectedFile.name,
+					path: req.files.selectedFile.path,
 				},
 			],
 		})
