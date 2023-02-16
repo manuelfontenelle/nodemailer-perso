@@ -1,20 +1,51 @@
 require("dotenv").config()
+
 const express = require("express")
 const formidable = require("express-formidable")
 const cors = require("cors")
 const nodemailer = require("nodemailer")
-
 const app = express()
 app.use(formidable())
 app.use(cors())
+// app.use(
+// 	bodyParser.urlencoded({
+// 		extended: true,
+// 	})
+// )
+// app.use(express.urlencoded({ extended: true }))
+// app.use(express.json())
+
+// const multer = require("multer")
+// const storage = multer.memoryStorage()
+// // const upload = multer({ storage: storage })
+// const upload = multer({
+// 	dest: "./uploads/",
+// })
+// const fs = require("fs")
+
+// const upload = multer({
+// 	storage: multer.memoryStorage(),
+// })
+// const storage = multer.memoryStorage()
+// const upload = multer({ storage: storage })
+
+// const middleware = [formidable(), cors(), upload.single("myfile")]
 
 app.get("/", (req, res) => {
 	res.send("Server is up!")
 })
 
-app.post("/form", async (req, res) => {
+app.post("/form", async (req, res, next) => {
 	const { prenom, nom, phone, email, message } = req.fields
 
+	// const { images } = req.files
+	// console.log(myfile)
+	console.log(req.fields)
+	console.log(req.files)
+	// console.log(req.files.myfile.name)
+
+	// console.log("testtttt : ", images)
+	// console.log(req.file, req.body)
 	if (email && message) {
 		let transporter = nodemailer.createTransport({
 			host: "smtp.gmail.com",
@@ -33,6 +64,12 @@ app.post("/form", async (req, res) => {
 			subject: "Contact", // Subject line
 			text: "test", // plain text body
 			html: `Prénom :${prenom}<br/><br/> Nom :${nom}<br/><br/> Phone :${phone}<br/><br/> Message : ${message}<br/><br/> E-mail : ${email}`, // html body
+			attachments: [
+				{
+					filename: req.files.selectedFile.name,
+					path: req.files.selectedFile.path,
+				},
+			],
 		})
 
 		if (info) {
